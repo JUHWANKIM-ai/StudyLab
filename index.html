@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Hedging Review - Ju Hwan Kim, Hanyang Univ.</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Floating Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h3>Navigation</h3>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#introduction" class="nav-link">1. Introduction</a></li>
+            <li><a href="#background" class="nav-link">2. Background</a></li>
+            <li><a href="#method" class="nav-link">3. Method</a></li>
+            <li><a href="#result" class="nav-link">4. Result</a></li>
+            <li><a href="#conclusion" class="nav-link">5. Conclusion</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="page-header">
+            <h1>Deep Hedging Review</h1>
+            <p class="author">Ju Hwan Kim, Hanyang University</p>
+            <p class="subtitle">A Comprehensive Analysis of Neural Network-Based Hedging Strategies</p>
+        </header>
+
+        <!-- Introduction Section -->
+        <section id="introduction" class="section">
+            <h2>1. Introduction</h2>
+            <div class="content-wrapper">
+                <p>Deep Hedging represents a paradigm shift in quantitative finance, leveraging deep neural networks to solve complex hedging problems that traditional methods struggle with.</p>
+                
+                <div class="key-points">
+                    <h3>Key Objectives</h3>
+                    <ul>
+                        <li>Develop neural network-based hedging strategies</li>
+                        <li>Address limitations of traditional delta hedging</li>
+                        <li>Optimize risk-adjusted returns in incomplete markets</li>
+                        <li>Handle transaction costs and market impact</li>
+                    </ul>
+                </div>
+
+                <div class="collapsible-section">
+                    <button class="collapsible-btn" onclick="toggleSection('motivation')">
+                        <span class="btn-text">Research Motivation</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="motivation" class="collapsible-content">
+                        <p>Traditional hedging approaches face several challenges:</p>
+                        <ul>
+                            <li>Assumption of complete markets</li>
+                            <li>Ignoring transaction costs</li>
+                            <li>Linear approximations in delta hedging</li>
+                            <li>Difficulty handling complex derivatives</li>
+                        </ul>
+                        <p>Deep Hedging addresses these limitations through data-driven, non-linear optimization.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Background Section -->
+        <section id="background" class="section">
+            <h2>2. Background</h2>
+            <div class="content-wrapper">
+                <h3>Traditional Hedging Methods</h3>
+                <p>Classical approaches to hedging rely on mathematical models and assumptions that may not hold in real markets.</p>
+
+                <div class="collapsible-section">
+                    <button class="collapsible-btn" onclick="toggleSection('delta-hedging')">
+                        <span class="btn-text">Delta Hedging</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="delta-hedging" class="collapsible-content">
+                        <p>Delta hedging involves maintaining a portfolio with zero delta:</p>
+                        <div class="equation">
+                            $$\Delta = \frac{\partial V}{\partial S} = 0$$
+                        </div>
+                        <p>Where <span class="tooltip" data-tooltip="The sensitivity of option value to underlying asset price">delta</span> represents the sensitivity of the option value to changes in the underlying asset price.</p>
+                    </div>
+                </div>
+
+                <div class="collapsible-section">
+                    <button class="collapsible-btn" onclick="toggleSection('risk-measures')">
+                        <span class="btn-text">Risk Measures</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="risk-measures" class="collapsible-content">
+                        <h4>Convex Risk Measures</h4>
+                        <p>A <span class="tooltip" data-tooltip="A risk measure that satisfies convexity, monotonicity, and translation invariance">convex risk measure</span> satisfies:</p>
+                        <ul>
+                            <li>Convexity: ρ(λX + (1-λ)Y) ≤ λρ(X) + (1-λ)ρ(Y)</li>
+                            <li>Monotonicity: X ≤ Y ⇒ ρ(X) ≥ ρ(Y)</li>
+                            <li>Translation invariance: ρ(X + c) = ρ(X) - c</li>
+                        </ul>
+                        
+                        <h4>Optimized Certainty Equivalent (OCE)</h4>
+                        <p>The <span class="tooltip" data-tooltip="A risk measure that optimizes over a set of probability measures">OCE</span> is defined as:</p>
+                        <div class="equation">
+                            $$\text{OCE}(X) = \sup_{\mathbb{Q} \in \mathcal{Q}} \mathbb{E}^{\mathbb{Q}}[X] - \alpha(\mathbb{Q})$$
+                        </div>
+                        <p>Where α(Q) is a penalty function and Q is a set of probability measures.</p>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Traditional vs Deep Hedging Comparison</h3>
+                    <canvas id="hedgingComparison"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Method Section -->
+        <section id="method" class="section">
+            <h2>3. Method</h2>
+            <div class="content-wrapper">
+                <h3>Deep Hedging Framework</h3>
+                <p>The deep hedging approach uses neural networks to learn optimal hedging strategies directly from market data.</p>
+
+                <div class="collapsible-section">
+                    <button class="collapsible-btn" onclick="toggleSection('neural-architecture')">
+                        <span class="btn-text">Neural Network Architecture</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="neural-architecture" class="collapsible-content">
+                        <p>The hedging strategy is parameterized by a neural network:</p>
+                        <div class="equation">
+                            $$\delta_t = f_\theta(S_t, t, \text{other features})$$
+                        </div>
+                        <p>Where θ represents the network parameters to be optimized.</p>
+                        
+                        <h4>Network Structure</h4>
+                        <ul>
+                            <li>Input layer: Market state variables</li>
+                            <li>Hidden layers: Fully connected with ReLU activation</li>
+                            <li>Output layer: Hedging position</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="collapsible-section">
+                    <button class="collapsible-btn" onclick="toggleSection('optimization')">
+                        <span class="btn-text">Optimization Problem</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="optimization" class="collapsible-content">
+                        <p>The objective is to minimize the risk-adjusted cost:</p>
+                        <div class="equation">
+                            $$\min_\theta \rho\left(\sum_{t=0}^{T-1} \delta_t \Delta S_t + C(\delta_t)\right)$$
+                        </div>
+                        <p>Where:</p>
+                        <ul>
+                            <li>ρ is a <span class="tooltip" data-tooltip="A risk measure that satisfies convexity, monotonicity, and translation invariance">convex risk measure</span></li>
+                            <li>δ_t is the hedging position at time t</li>
+                            <li>ΔS_t is the price change</li>
+                            <li>C(δ_t) represents transaction costs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="collapsible-section">
+                    <button class="collapsible-btn" onclick="toggleSection('market-impact')">
+                        <span class="btn-text">Market Impact</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="market-impact" class="collapsible-content">
+                        <p><span class="tooltip" data-tooltip="The effect of trading activity on market prices">Market impact</span> is modeled as:</p>
+                        <div class="equation">
+                            $$\Delta S_t = \mu_t + \sigma_t \epsilon_t + \eta \delta_t$$
+                        </div>
+                        <p>Where η represents the market impact parameter.</p>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Neural Network Training Process</h3>
+                    <canvas id="trainingProcess"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Result Section -->
+        <section id="result" class="section">
+            <h2>4. Result</h2>
+            <div class="content-wrapper">
+                <h3>Performance Analysis</h3>
+                <p>Deep hedging demonstrates superior performance compared to traditional methods across various metrics.</p>
+
+                <div class="collapsible-section">
+                    <button class="collapsible-btn" onclick="toggleSection('performance-metrics')">
+                        <span class="btn-text">Performance Metrics</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="performance-metrics" class="collapsible-content">
+                        <h4>Key Performance Indicators</h4>
+                        <ul>
+                            <li>Sharpe Ratio: Risk-adjusted returns</li>
+                            <li>Maximum Drawdown: Worst peak-to-trough decline</li>
+                            <li>Value at Risk (VaR): Potential loss at confidence level</li>
+                            <li>Expected Shortfall: Average loss beyond VaR</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Performance Comparison</h3>
+                    <canvas id="performanceComparison"></canvas>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Risk-Return Profile</h3>
+                    <canvas id="riskReturnProfile"></canvas>
+                </div>
+
+                <div class="collapsible-section">
+                    <button class="collapsible-btn" onclick="toggleSection('robustness')">
+                        <span class="btn-text">Robustness Analysis</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="robustness" class="collapsible-content">
+                        <p>Deep hedging shows robustness across different market conditions:</p>
+                        <ul>
+                            <li>Volatility regimes</li>
+                            <li>Market stress periods</li>
+                            <li>Different asset classes</li>
+                            <li>Transaction cost levels</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion Section -->
+        <section id="conclusion" class="section">
+            <h2>5. Conclusion</h2>
+            <div class="content-wrapper">
+                <h3>Summary of Findings</h3>
+                <p>Deep hedging represents a significant advancement in quantitative finance, offering several key advantages:</p>
+                
+                <div class="key-findings">
+                    <ul>
+                        <li><strong>Superior Performance:</strong> Outperforms traditional delta hedging across multiple metrics</li>
+                        <li><strong>Flexibility:</strong> Adapts to complex market conditions and derivative structures</li>
+                        <li><strong>Risk Management:</strong> Better handles transaction costs and market impact</li>
+                        <li><strong>Scalability:</strong> Applicable to various asset classes and market conditions</li>
+                    </ul>
+                </div>
+
+                <div class="collapsible-section">
+                    <button class="collapsible-btn" onclick="toggleSection('limitations')">
+                        <span class="btn-text">Limitations and Future Work</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div id="limitations" class="collapsible-content">
+                        <h4>Current Limitations</h4>
+                        <ul>
+                            <li>Computational complexity</li>
+                            <li>Interpretability challenges</li>
+                            <li>Data requirements</li>
+                            <li>Model validation</li>
+                        </ul>
+                        
+                        <h4>Future Research Directions</h4>
+                        <ul>
+                            <li>Multi-asset portfolio optimization</li>
+                            <li>Real-time implementation</li>
+                            <li>Explainable AI techniques</li>
+                            <li>Regulatory considerations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Impact Assessment</h3>
+                    <canvas id="impactAssessment"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html> 
