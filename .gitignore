@@ -1,26 +1,24 @@
-/Deep_Learning/
-/recosys-example/
-/ResNet/data/
-/DenseNet/data
-/Transformer/output/Transformer-IMDB.pt
-/Database/
-/SigCWGAN/
-/SigWGAN/
-/GENERATION/result/Stock_T4sigWGAN.pt
-/GENERATION/result/Stock_T4sigWGANFinetune.pt
-/GENERATION/result/Stock_T4sigWGANPretrain_1.pt
-/GENERATION/result/Stock_T4sigWGANPretrain_2.pt
-/venv/
-/WRDS/filtered/
-/RISK_ESTIMATION/data/
-/catboost_info/
-/CASUAL_INFERENCE/data/
-/CASUAL_INFERENCE/images/
-/BIGCON/
-/WRDS/
-/FERM/data/
-/FERM/back_testing/
-/FERM/general_results/
-/MSDiffusion/data/
-/MSDiffusion/Diffseg-Enc-hyper/
-/lake_v2_dart_sba
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+
+# Editors / OS
+.idea/
+.vscode/
+.ipynb_checkpoints/
+*Zone.Identifier
+.DS_Store
+
+# Run outputs (new runs should not be committed)
+catboost_info/
+wandb/
+runs/
+*.log
+
+# Large inputs fetched at run time
+quant/risk_estimation/data/
+quant/wrds_pipeline/Database/
+dl/msdiffusion/data/

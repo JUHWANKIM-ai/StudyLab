@@ -1,0 +1,27 @@
+# Imports found across this repository. Versions are intentionally unpinned:
+# the notebooks were written over several years against different versions,
+# and no single pinned set was verified to run all of them.
+numpy
+pandas
+scipy
+matplotlib
+seaborn
+tqdm
+joblib
+requests
+
+# machine learning
+torch
+scikit-learn
+statsmodels
+optuna
+pytorch-ignite          # `ignite`, used by the SigCWGAN training loop
+torch-geometric         # `torch_geometric`, GATv2 layers in the GATCN notebook
+signatory               # signature features of SigCWGAN (must match the torch version)
+
+# reinforcement learning
+gymnasium
+
+# finance / data
+yfinance
+econml
